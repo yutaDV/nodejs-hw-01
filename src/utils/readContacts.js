@@ -1,14 +1,15 @@
-import { promises as fs } from 'fs';
-import { PATH_DB } from '../constants/contacts.js'; 
+import fs from 'fs/promises';
+import { PATH_DB } from '../constants/contacts.js';
 
-export const readContacts = async () => {
+async function readContacts() {
   try {
-    // Зчитуємо файл з контактами
     const data = await fs.readFile(PATH_DB, 'utf-8');
-    // Повертаємо масив контактів після парсингу JSON
     return JSON.parse(data);
   } catch (error) {
-    console.error(`Помилка при читанні файлу: ${error.message}`);
-    return []; // Повертаємо порожній масив у разі помилки
+    console.error('Error reading contacts:', error.message);
+    return [];
   }
-};
+}
+
+export default readContacts;
+

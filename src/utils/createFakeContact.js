@@ -1,10 +1,13 @@
+import { faker } from '@faker-js/faker';
 
-import { faker } from "@faker-js/faker";
+function createFakeContact() {
+  return {
+    id: faker.string.uuid(), // Унікальний ідентифікатор
+    name: faker.person.fullName(), // Повне ім'я
+    phone: faker.phone.number(), // Номер телефону
+    email: faker.internet.email(), // Email
+    job: faker.person.jobTitle(), // Професія
+  };
+}
 
-export const createFakeContact = () => ({
-  id: faker.string.uuid(),
-  name: faker.person.fullName(),
-  phone: faker.phone.number(),
-  email: faker.internet.email(),
-  job: faker.person.jobTitle(),
-});
+export default createFakeContact; // Експортуємо функцію як default

@@ -1,12 +1,13 @@
+import fs from 'fs/promises';
+import { PATH_DB } from '../constants/contacts.js';
 
-import { promises as fs } from 'fs';
-import { PATH_DB } from '../constants/contacts.js'; 
-
-export const writeContacts = async (contacts) => {
+async function writeContacts(contacts) {
   try {
-    await fs.writeFile(PATH_DB, JSON.stringify(contacts, null, 2)); // Записуємо дані у форматі JSON
-    console.log('Контакти успішно записані у файл.');
+    await fs.writeFile(PATH_DB, JSON.stringify(contacts, null, 2), 'utf-8');
+    console.log('Contacts successfully updated!');
   } catch (error) {
-    console.error(`Помилка при записі файлу: ${error.message}`);
+    console.error('Error writing contacts:', error.message);
   }
-};
+}
+
+export default writeContacts;

@@ -1,28 +1,31 @@
+import readContacts from '../utils/readContacts.js'; // Функція для зчитування контактів
+import writeContacts from '../utils/writeContacts.js'; // Функція для запису контактів
+import createFakeContact from '../utils/createFakeContact.js'; // Функція для генерації фейкових контактів
 
-import { readContacts } from '../utils/readContacts.js';
-import { writeContacts } from '../utils/writeContacts.js';
-import { createFakeContact } from '../utils/createFakeContact.js';
-
-export const generateContacts = async (count) => {
+async function generateContacts(count) {
   try {
     // Зчитуємо існуючі контакти
     const contacts = await readContacts();
 
     // Генеруємо нові контакти
-    const newContacts = Array.from({ length: count }, createFakeContact);
+    const newContacts = Array.from({ length: count }, () => createFakeContact());
 
-    // Додаємо нові контакти до існуючих
+    // Оновлюємо масив контактів
     const updatedContacts = [...contacts, ...newContacts];
 
-    // Записуємо оновлений масив контактів у файл
+    // Записуємо оновлені контакти у файл
     await writeContacts(updatedContacts);
 
-    console.log(`Успішно додано ${count} контактів.`);
+    console.log(`Successfully added ${count} contacts.`);
   } catch (error) {
-    console.error(`Помилка при генерації контактів: ${error.message}`);
+    console.error('Error generating contacts:', error.message);
   }
-};
+}
 
-// Викликаємо функцію для генерації контактів
-const count = 5; // Задай потрібну кількість контактів
-generateContacts(count);
+// Отримуємо кількість контактів із аргументів командного рядка
+const count = parseInt(process.argv[2], 10);
+if (!isNaN(count) && count > 0) {
+  generateContacts(count);
+} else {
+  console.error('Please provide a valid number of contacts to generate.');
+}
