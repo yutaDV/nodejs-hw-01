@@ -22,9 +22,10 @@ async function generateContacts(count) {
   }
 }
 
-// Отримуємо кількість контактів із аргументів командного рядка
-const count = parseInt(process.argv[2], 10);
-if (!isNaN(count) && count > 0) {
+
+const count = 10; 
+
+if (Number.isInteger(count) && count > 0) {
   generateContacts(count);
 } else {
   console.error('Please provide a valid number of contacts to generate.');

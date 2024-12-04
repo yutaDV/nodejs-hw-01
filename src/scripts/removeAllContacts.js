@@ -1,10 +1,9 @@
 import writeContacts from '../utils/writeContacts.js';
-import readContacts from '../utils/readContacts.js';
+
 
 const removeAllContacts = async () => {
   try {
-    // Зчитуємо всі контакти з файлу
-    const contacts = await readContacts();
+
     
     // Очищаємо масив контактів
     const updatedContacts = [];
